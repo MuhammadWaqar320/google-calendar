@@ -77,6 +77,7 @@ const style = {
   inputfield: {
     width: "80%",
     borderBottom: "1px solid silver",
+    paddingLeft:'5px'
   },
   clock: {
     display: "flex",
@@ -283,6 +284,7 @@ const EventModel = () => {
                 id="standard-basic"
                 required
                 label="Add title"
+                minlength="5"
                 variant="standard"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -360,6 +362,9 @@ const EventModel = () => {
                   id="standard-basic"
                   label="Add description"
                   value={desc}
+                  type="text"
+                  minlength="5"        
+                  inputProps={{minlength:5, maxLength: 20}}
                   onChange={(e) => setDesc(e.target.value)}
                   InputProps={{ disableUnderline: true }}
                   variant="standard"

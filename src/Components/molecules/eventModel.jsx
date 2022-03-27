@@ -6,10 +6,10 @@ import Modal from "@mui/material/Modal";
 import { useContext } from "react";
 import contextGlobal from "../../Context/contextGlobal";
 import Backdrop from "@mui/material/Backdrop";
-import { AiOutlineCheck } from 'react-icons/ai';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-import Input from '@mui/material/Input';
+import { AiOutlineCheck } from "react-icons/ai";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import Input from "@mui/material/Input";
 import {
   MdOutlineClose,
   MdOutlinePeople,
@@ -32,7 +32,7 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width:{xs:'340px',md:'38px',lg:'450px'},
+    width: { xs: "340px", md: "38px", lg: "450px" },
     bgcolor: "white",
     border: "none",
     outline: "none",
@@ -69,10 +69,10 @@ const style = {
     marginTop: "0px",
     marginLeft: "8%",
   },
-  event:{
-    color:'#2196f3',
-    fontSize:'25px',
-    fontWeight:'bold'
+  event: {
+    color: "#2196f3",
+    fontSize: "25px",
+    fontWeight: "bold",
   },
   inputfield: {
     width: "80%",
@@ -149,29 +149,24 @@ const style = {
     marginRight: "8.5%",
     marginTop: "15px",
   },
-  singleColorbox:{
-      width:'40px',
-      height:'40px',
-      margin:'1%',
-      border:'1px solid silver',
-      borderRadius:'50%',
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      color:'white'
-     
-  }
-  ,colorBox:{
-    display:'flex',
-    textAlign:'center',
-    fontSize:'20px',
-    marginTop:'15px',
-    justifyContent:'center'
-  
-
-  
-  }
-  ,
+  singleColorbox: {
+    width: "40px",
+    height: "40px",
+    margin: "1%",
+    border: "1px solid silver",
+    borderRadius: "50%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    color: "white",
+  },
+  colorBox: {
+    display: "flex",
+    textAlign: "center",
+    fontSize: "20px",
+    marginTop: "15px",
+    justifyContent: "center",
+  },
   location: {
     display: "flex",
     marginLeft: "8%",
@@ -197,9 +192,9 @@ const style = {
 };
 
 const EventModel = () => {
-  const colorLabel=["#00008B","#008000","#8B0000","#4169E1","#DC143C"]
+  const colorLabel = ["#00008B", "#008000", "#8B0000", "#4169E1", "#DC143C"];
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const {
     showModel,
     setShowModel,
@@ -208,55 +203,54 @@ const EventModel = () => {
     selectedEvent,
     isEvent,
     setSelectedEvent,
-    setIsEvent
+    setIsEvent,
   } = useContext(contextGlobal);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [location,setLocation]=React.useState("")
-  const [guest,setguest]=React.useState("")
-  const [title,setTitle]=React.useState(selectedEvent&&isEvent?selectedEvent.title:"")
-  const [desc,setDesc]=React.useState(selectedEvent&&isEvent?selectedEvent.desc:"")
-  const [selectedColor,setSelectedColor]=React.useState(selectedEvent?selectedEvent.Color:colorLabel[0]);
-  const handleSubmit=(e)=>
-  {
+  const [location, setLocation] = React.useState("");
+  const [guest, setguest] = React.useState("");
+  const [title, setTitle] = React.useState(
+    selectedEvent && isEvent ? selectedEvent.title : ""
+  );
+  const [desc, setDesc] = React.useState(
+    selectedEvent && isEvent ? selectedEvent.desc : ""
+  );
+  const [selectedColor, setSelectedColor] = React.useState(
+    selectedEvent ? selectedEvent.Color : colorLabel[0]
+  );
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const eventData={
-      id:selectedEvent?selectedEvent.id:Date.now(),
+    const eventData = {
+      id: selectedEvent ? selectedEvent.id : Date.now(),
       title,
       desc,
-      Color:selectedColor,
-      day:daySelected.valueOf(),
-     
+      Color: selectedColor,
+      day: daySelected.valueOf(),
+    };
+    if (selectedEvent) {
+      dispatchCalEvent({ type: "update", payload: eventData });
+    } else {
+      dispatchCalEvent({ type: "push", payload: eventData });
     }
-    if(selectedEvent)
-    {
-      dispatchCalEvent({type:"update",payload:eventData})
-    }
-    else{
-      dispatchCalEvent({type:"push",payload:eventData})
 
-    }
-  
-    setShowModel(false)
-  }
+    setShowModel(false);
+    setSelectedEvent(null);
+  };
 
   const img =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Google_Meet_icon_%282020%29.svg/2491px-Google_Meet_icon_%282020%29.svg.png";
   // const [isActive,setIsActive]=useState()
 
   return (
-    <div>
+    <Box>
       <Modal
-       
-    
         open={showModel}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         disablePortal={true}
         disableEnforceFocus
-      
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
@@ -268,153 +262,174 @@ const EventModel = () => {
               <HiOutlineMenuAlt4 />
             </Box>
             <Box sx={style.closeIcon}>
-              <MdOutlineClose onClick={() => { setIsEvent(false);setShowModel(false); setSelectedEvent("")}} />
+              <MdOutlineClose
+                onClick={() => {
+                  setIsEvent(false);
+                  setShowModel(false);
+                  setSelectedEvent("");
+                }}
+              />
             </Box>
           </Box>
-          <Box sx={{textAlign:'center'}}>
-          <p style={style.event}>{ isEvent?"Update Event":"Add Event"}</p>
+          <Box sx={{ textAlign: "center" }}>
+            <p style={style.event}>
+              {isEvent && selectedEvent ? "Update Event" : "Add Event"}
+            </p>
           </Box>
-          <form  onSubmit={handleSubmit}>
-
-          <Box sx={style.input}>
-           
-            <TextField
-              sx={style.inputfield}
-              id="standard-basic"
-              required
-              label="Add title"
-              variant="standard"
-              value={title}
-              onChange={(e)=>setTitle( e.target.value)}
-              InputProps={{ disableUnderline: true }}
-            />
-          </Box>
-       
-          <Box sx={style.clock}>
-            <Box sx={style.clockIcon}>
-              <BsClock />
-            </Box>
-            <Box sx={style.Detail}>
-            
-              {daySelected && daySelected.format("dddd, MMMM DD")}
-              <Box sx={{ fontSize: "12px" }}>Does not repeat</Box>
-            </Box>
-          </Box>
-          <Box sx={style.location}>
-            <Box sx={style.locationIcon}>
-            <MdOutlinePeople />
-            </Box>
-            <Box sx={style.locationField}>
+          <form onSubmit={handleSubmit}>
+            <Box sx={style.input}>
               <TextField
-                sx={style.locationInput}
+                sx={style.inputfield}
                 id="standard-basic"
-                label="Add guests"
-                value={guest}
-            
-                onChange={(e)=>setguest( e.target.value)}
-                InputProps={{ disableUnderline: true }}
-                variant="standard"
-              />
-            </Box>
-          </Box>
-          <Box sx={style.conference}>
-            <Box sx={style.meetingImg}>
-              <Image source={img} ALt="meeting logo" design={style.imgDesign} />
-            </Box>
-            <Box sx={style.meetingBtn}>
-              <ButtonComponent
-                variant="contained"
-                styled={{ textTransform: "none" }}
-                label="Add Google Meet Video Conferrencing"
-              />
-            </Box>
-          </Box>
-          {/* location */}
-          <Box sx={style.location}>
-            <Box sx={style.locationIcon}>
-              <MdOutlineLocationOn />
-            </Box>
-            <Box sx={style.locationField}>
-              <TextField
-                sx={style.locationInput}
-                id="standard-basic"
-                label="Add location"
-              
-                value={location}
-                onChange={(e)=>setLocation( e.target.value)}
-                InputProps={{ disableUnderline: true }}
-                variant="standard"
-              />
-            </Box>
-          </Box>
-          {/* desc */}
-          <Box sx={style.location}>
-            <Box sx={style.locationIcon}>
-              <HiOutlineMenuAlt2 />
-            </Box>
-            <Box sx={style.locationField}>
-              <TextField
                 required
-                sx={style.locationInput}
-                id="standard-basic"
-                label="Add description"
-
-                value={desc}
-                onChange={(e)=>setDesc( e.target.value)}
-                InputProps={{ disableUnderline: true }}
+                label="Add title"
                 variant="standard"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                InputProps={{ disableUnderline: true }}
               />
             </Box>
-          </Box>
-          {/* detail */}
-          <Box sx={style.clock}>
-            <Box sx={style.calendar}>
-              <BsCalendarEvent />
-            </Box>
-            <Box sx={style.username}>
-              Muhammad Waqar
-              <Box sx={{ fontSize: "12px" }}>
-                Free <BsDot /> visibility <BsDot /> Do not Notify
+
+            <Box sx={style.clock}>
+              <Box sx={style.clockIcon}>
+                <BsClock />
+              </Box>
+              <Box sx={style.Detail}>
+                {daySelected && daySelected.format("dddd, MMMM DD")}
+                <Box sx={{ fontSize: "12px" }}>Does not repeat</Box>
               </Box>
             </Box>
-          </Box>
-          {/* color group */}
-          <Box  sx={style.colorBox}>
-          {
-            colorLabel.map((item)=>
-            {
-              return(<Box onClick={()=>setSelectedColor(item)} sx={style.singleColorbox} style={{background:`${item}`}}>
-              {selectedColor==item&&<p><AiOutlineCheck/> </p>}
-              </Box>)
-            })
-          }
-          </Box>
-          {/* footer */}
-          <Box sx={style.footer}>
-            <ButtonComponent
-              variant="text"
-              type="submit"
-              onClickEvent={isEvent?()=> {dispatchCalEvent({type:"delete",payload:selectedEvent});setIsEvent(false)}:""}
-              styled={{
-                textTransform: "none",
-                marginRight: "5px",
-                color: "black",
-              }}
-              label={isEvent?"Delete":"More options"}
-
-            />
-            <ButtonComponent
-              variant="contained"
-              type="submit"
-              styled={{ textTransform: "none" }}
-              label="Save"
-             
-            />
-          </Box>
+            <Box sx={style.location}>
+              <Box sx={style.locationIcon}>
+                <MdOutlinePeople />
+              </Box>
+              <Box sx={style.locationField}>
+                <TextField
+                  sx={style.locationInput}
+                  id="standard-basic"
+                  label="Add guests"
+                  value={guest}
+                  onChange={(e) => setguest(e.target.value)}
+                  InputProps={{ disableUnderline: true }}
+                  variant="standard"
+                />
+              </Box>
+            </Box>
+            <Box sx={style.conference}>
+              <Box sx={style.meetingImg}>
+                <Image
+                  source={img}
+                  ALt="meeting logo"
+                  style={style.imgDesign}
+                />
+              </Box>
+              <Box sx={style.meetingBtn}>
+                <ButtonComponent
+                  variant="contained"
+                  styled={{ textTransform: "none" }}
+                  label="Add Google Meet Video Conferrencing"
+                />
+              </Box>
+            </Box>
+            {/* location */}
+            <Box sx={style.location}>
+              <Box sx={style.locationIcon}>
+                <MdOutlineLocationOn />
+              </Box>
+              <Box sx={style.locationField}>
+                <TextField
+                  sx={style.locationInput}
+                  id="standard-basic"
+                  label="Add location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  InputProps={{ disableUnderline: true }}
+                  variant="standard"
+                />
+              </Box>
+            </Box>
+            {/* desc */}
+            <Box sx={style.location}>
+              <Box sx={style.locationIcon}>
+                <HiOutlineMenuAlt2 />
+              </Box>
+              <Box sx={style.locationField}>
+                <TextField
+                  required
+                  sx={style.locationInput}
+                  id="standard-basic"
+                  label="Add description"
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
+                  InputProps={{ disableUnderline: true }}
+                  variant="standard"
+                />
+              </Box>
+            </Box>
+            {/* detail */}
+            <Box sx={style.clock}>
+              <Box sx={style.calendar}>
+                <BsCalendarEvent />
+              </Box>
+              <Box sx={style.username}>
+                Muhammad Waqar
+                <Box sx={{ fontSize: "12px" }}>
+                  Free <BsDot /> visibility <BsDot /> Do not Notify
+                </Box>
+              </Box>
+            </Box>
+            {/* color group */}
+            <Box sx={style.colorBox}>
+              {colorLabel.map((item) => {
+                return (
+                  <Box
+                    onClick={() => setSelectedColor(item)}
+                    sx={style.singleColorbox}
+                    style={{ background: `${item}` }}
+                  >
+                    {selectedColor == item && (
+                      <p>
+                        <AiOutlineCheck />{" "}
+                      </p>
+                    )}
+                  </Box>
+                );
+              })}
+            </Box>
+            {/* footer */}
+            <Box sx={style.footer}>
+              <ButtonComponent
+                variant="text"
+                type="submit"
+                onClickEvent={
+                  isEvent
+                    ? () => {
+                        dispatchCalEvent({
+                          type: "delete",
+                          payload: selectedEvent,
+                        });
+                        setIsEvent(false);
+                      }
+                    : ""
+                }
+                styled={{
+                  textTransform: "none",
+                  marginRight: "5px",
+                  color: "black",
+                }}
+                label={isEvent ? "Delete" : "More options"}
+              />
+              <ButtonComponent
+                variant="contained"
+                type="submit"
+                styled={{ textTransform: "none" }}
+                label="Save"
+              />
+            </Box>
           </form>
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 };
 export default EventModel;

@@ -10,6 +10,7 @@ import contextGlobal from "../../Context/contextGlobal";
 import { useState } from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
+import { Box } from "@mui/material";
 import { Hidden } from "@mui/material";
 import EventModel from "../../Components/molecules/eventModel";
 const makestyle = makeStyles({
@@ -27,12 +28,12 @@ const Home = () => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
   return (
-    <div>
+    <Box>
       {showModel ? <EventModel /> : ""}
 
-      <div>
+      <Box>
         <NavBar />
-      </div>
+      </Box>
       <Grid container direction="row">
         {sideBar ? (
           <>
@@ -40,11 +41,10 @@ const Home = () => {
               <LeftSideBar />
             </Grid>
             <Hidden mdDown={true}>
-            <Grid item md={9.8} className={classes.midContent}>
-              <MidContent month={currentMonth} />
-            </Grid>
+              <Grid item md={9.8} className={classes.midContent}>
+                <MidContent month={currentMonth} />
+              </Grid>
             </Hidden>
-          
           </>
         ) : (
           <>
@@ -54,7 +54,7 @@ const Home = () => {
           </>
         )}
       </Grid>
-    </div>
+    </Box>
   );
 };
 export default Home;

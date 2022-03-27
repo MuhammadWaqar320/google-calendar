@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const Image = ({source,Alt,design}) => {
-  return (
-    <img src={source} alt={Alt} style={design}></img>
-  )
-}
+const Image = ({ source, Alt, style }) => {
+  return <img src={source} alt={Alt} style={style}></img>;
+};
 
-export default Image
+export default Image;

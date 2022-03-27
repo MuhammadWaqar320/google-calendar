@@ -13,7 +13,7 @@ import contextGlobal from "../../Context/contextGlobal";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { getMonth } from "../../Functions/monthMatrix";
-import './../../App.css';
+import "./../../App.css";
 const makestyle = makeStyles({
   container: {
     display: "flex",
@@ -50,13 +50,12 @@ const LeftSideBar = () => {
     setDaySelected,
     setSmallCalenderMonth,
     setShowModel,
-    savedEvents
-    ,
+    savedEvents,
   } = useContext(contextGlobal);
   let myCalender = [];
-  const otherCalender = [{title:"holiday",colorName:"green"}];
-  savedEvents.forEach(element => {
-    myCalender.push({title:element.title,colorName:element.Color})
+  const otherCalender = [{ title: "holiday", colorName: "green" }];
+  savedEvents.forEach((element) => {
+    myCalender.push({ title: element.title, colorName: element.Color });
   });
   const handlePreMonth = () => {
     setCurrentMonthIndex(currentMonthIndex - 1);
@@ -72,7 +71,7 @@ const LeftSideBar = () => {
     setCurrentMonth(getMonth(currentMonthIndex));
   }, [currentMonthIndex]);
   return (
-    <div>
+    <Box>
       <CreateEvent />
       <Box className={classes.container}>
         <Box className={classes.containerLeft}>
@@ -92,9 +91,8 @@ const LeftSideBar = () => {
           </Box>
         </Box>
       </Box>
-     
 
-      <Box sx={{margin:'5% 10%'}}>
+      <Box sx={{ margin: "5% 10%" }}>
         <SmallCalendar
           currentMonth={currentMonth}
           currentMonthIndex={currentMonthIndex}
@@ -110,8 +108,7 @@ const LeftSideBar = () => {
           <AiOutlinePlus style={{ fontSize: "20px", marginRight: "10px" }} />
         }
       />
-    
-    </div>
+    </Box>
   );
 };
 

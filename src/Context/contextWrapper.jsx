@@ -27,8 +27,8 @@ const ContextWrapper = (props) => {
   const [showModel, setShowModel] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(false);
   const [labels, setLabels] = useState([]);
-  const [ isEvent,  setIsEvent] = useState(false);
-  const [sideBar,setSideBar]=useState(true)
+  const [isEvent, setIsEvent] = useState(false);
+  const [sideBar, setSideBar] = useState(true);
 
   const [savedEvents, dispatchCalEvent] = useReducer(
     SavedEventReducer,
@@ -62,8 +62,9 @@ const ContextWrapper = (props) => {
         labels,
         setLabels,
         setIsEvent,
-        isEvent,sideBar,
-        setSideBar
+        isEvent,
+        sideBar,
+        setSideBar,
       }}
     >
       {props.children}

@@ -1,13 +1,16 @@
-import { Button } from '@mui/material';
-import React from 'react';
-import { makeStyles } from '@mui/styles';
-const ButtonComponent= ({label,variant,styled,onClickEvent,type}) => {
-  return (
-    <div>
-        <Button variant={variant} type={type} onClick={onClickEvent} sx={styled}>{label}</Button>
-        
-    </div>
-  )
-}
+import { Button } from "@mui/material";
+import React from "react";
+import { Box } from "@mui/material";
 
-export default ButtonComponent
+import { makeStyles } from "@mui/styles";
+const ButtonComponent = ({ label, variant, styled, onClickEvent, type }) => {
+  return (
+    <Box>
+      <Button variant={variant} type={type} onClick={onClickEvent} sx={styled}>
+        {label}
+      </Button>
+    </Box>
+  );
+};
+
+export default ButtonComponent;

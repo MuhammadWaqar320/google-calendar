@@ -31,28 +31,21 @@ export default function EventList({ label, plus, list }) {
         {plus} {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
-          {
-              list.map((item)=>(
-                <List component="div" disablePadding>
-                  
-                <ListItemButton sx={{ pl: 4 }}>
-                  <RiCheckboxFill
-                    style={{
-                      color: item.colorName,
-                      borderRadius: "5px",
-                      marginRight: "10px",
-                      fontSize: "23px",
-                    }}
-                  />
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </List>
-              ))
-          }
-     
-
-
-        
+        {list.map((item) => (
+          <List component="div" disablePadding>
+            <ListItemButton sx={{ pl: 4 }}>
+              <RiCheckboxFill
+                style={{
+                  color: item.colorName,
+                  borderRadius: "5px",
+                  marginRight: "10px",
+                  fontSize: "23px",
+                }}
+              />
+              <ListItemText primary={item.title} />
+            </ListItemButton>
+          </List>
+        ))}
       </Collapse>
     </List>
   );

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import contextGlobal from "./../../Context/contextGlobal";
 import { useState } from "react";
 import { useEffect } from "react";
-import  dayjs  from "dayjs";
+import dayjs from "dayjs";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
 const makestyle = makeStyles({
@@ -13,32 +13,35 @@ const makestyle = makeStyles({
     textAlign: "center",
     borderBottom: "1px solid silver",
     borderRight: "1px solid silver",
-    fontSize:'13px',
-    paddingTop:'10px',
+    fontSize: "13px",
+    paddingTop: "10px",
     "@media (max-width: 767px)": {
-      fontSize:'8px',
-      height:'50px'
-    }
+      fontSize: "8px",
+      height: "50px",
+    },
   },
-  currentDay:{
-    background:'#067fbf',
-    color:'white',
-    borderRadius:'50%',
-    paddingBottom:'3px',
-    paddingLeft:'4px',
-    paddingRight:'4px',
-    paddingTop:'1px',
-    cursor:'pointer',
+  currentDay: {
+    background: "#067fbf",
+    color: "white",
+    borderRadius: "50%",
+    paddingBottom: "3px",
+    paddingLeft: "4px",
+    paddingRight: "4px",
+    paddingTop: "1px",
+    cursor: "pointer",
   },
-  eventClass:{
-    border:'1px solid silver',
-    margin:'5px 40px',color:'white',padding:'0px 3px 3px 3px',borderRadius:'5px',
-    "@media (max-width: 767px)":{
-      fontSize:'8px',
-      margin:'1px',
-      padding:'0px 1px 1px 1px'
-    }
-  }
+  eventClass: {
+    border: "1px solid silver",
+    margin: "5px 40px",
+    color: "white",
+    padding: "0px 3px 3px 3px",
+    borderRadius: "5px",
+    "@media (max-width: 767px)": {
+      fontSize: "8px",
+      margin: "1px",
+      padding: "0px 1px 1px 1px",
+    },
+  },
 });
 const Day = ({ day, index }) => {
   const classes = makestyle();
@@ -49,7 +52,7 @@ const Day = ({ day, index }) => {
     savedEvents,
     selectedEvent,
     setSelectedEvent,
-    setIsEvent
+    setIsEvent,
   } = useContext(contextGlobal);
   const [dayEvent, setDayEvent] = useState([]);
   useEffect(() => {
@@ -58,30 +61,49 @@ const Day = ({ day, index }) => {
     );
     setDayEvent(events);
   }, [savedEvents, day]);
-  const getCurrentDayClass=()=>
-    {
-      const isCurrent=day.format("DD-MM-YY")===dayjs().format("DD-MM-YY");
-        return (isCurrent?classes.currentDay:"")
-    }
+  const getCurrentDayClass = () => {
+    const isCurrent = day.format("DD-MM-YY") === dayjs().format("DD-MM-YY");
+    return isCurrent ? classes.currentDay : "";
+  };
   return (
-    <div
-      className={classes.Box}
-    
-    >
-   
-      {index === 0 ?  <> <p style={{display:'inline'}}>{day.format("ddd")}</p><br></br></>  : ""}
+    <Box className={classes.Box}>
+      {index === 0 ? (
+        <>
+          {" "}
+          <p style={{ display: "inline" }}>{day.format("ddd")}</p>
+          <br></br>
+        </>
+      ) : (
+        ""
+      )}
 
-      <div   onClick={() => {
-        setShowModel(true);
-        setDaySelected(day);
-       
-      }} ><span className={getCurrentDayClass()}>{day.format("DD")}</span></div>
+      <Box
+        onClick={() => {
+          setShowModel(true);
+          setDaySelected(day);
+        }}
+      >
+        <span className={getCurrentDayClass()}>{day.format("DD")}</span>
+      </Box>
 
-      {dayEvent.map((event)=>
-        (
-        <> <Box onClick={()=>{setSelectedEvent(event); setShowModel(true); setIsEvent(true);setDaySelected(day)}} className={classes.eventClass} sx={{backgroundColor:event.Color}}>{event.title}</Box></>
-        ))}
-    </div>
+      {dayEvent.map((event) => (
+        <>
+          {" "}
+          <Box
+            onClick={() => {
+              setSelectedEvent(event);
+              setShowModel(true);
+              setIsEvent(true);
+              setDaySelected(day);
+            }}
+            className={classes.eventClass}
+            sx={{ backgroundColor: event.Color }}
+          >
+            {event.title}
+          </Box>
+        </>
+      ))}
+    </Box>
   );
 };
 
